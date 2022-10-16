@@ -3,15 +3,16 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
     id 'com.google.gms.google-services'
 }
 
 android {
-    namespace 'com.mahmoudhamdyae.mnotes'
+    namespace 'com.mahmoudhamdyae.mynotes'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.mahmoudhamdyae.mnotes"
+        applicationId "com.mahmoudhamdyae.mynotes"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -33,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -42,7 +46,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-auth:21.0.8'
+    implementation 'androidx.test.ext:junit-ktx:1.1.3'
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
@@ -53,4 +60,8 @@ dependencies {
     // Room
     implementation 'androidx.room:room-runtime:2.4.3'
     kapt 'androidx.room:room-compiler:2.4.3'
+
+    implementation 'androidx.room:room-ktx:2.4.3'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 }

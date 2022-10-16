@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">MNotes</string>
+    <string name="app_name">My Notes</string>
+
+    <!-- Menu Items -->
+    <string name="del_menu_item">Delete</string>
+
+    <!-- Content Descriptions-->
+    <string name="add_note_fab_content_description">Add Note</string>
+    <string name="save_note_fab_content_description">Save Note</string>
 </resources>
