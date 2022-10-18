@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.room.Room
 import com.mahmoudhamdyae.mynotes.database.Note
 import com.mahmoudhamdyae.mynotes.database.NoteDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -22,10 +21,7 @@ class CatalogViewModel(application: Application) : AndroidViewModel(application)
     val error: LiveData<String>
         get() = _error
 
-    val database = Room.databaseBuilder(
-        application,
-        NoteDatabase::class.java, "note_database"
-    ).build()
+    val database = NoteDatabase.getInstance(application)
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
@@ -33,7 +29,7 @@ class CatalogViewModel(application: Application) : AndroidViewModel(application)
     init {
         coroutineScope.launch {
             try {
-                database.noteDao.getAllNotes().collect() {
+                database.noteDao().getAllNotes().collect() {
                     _notes.postValue(it)
                 }
             } catch (e: Exception) {

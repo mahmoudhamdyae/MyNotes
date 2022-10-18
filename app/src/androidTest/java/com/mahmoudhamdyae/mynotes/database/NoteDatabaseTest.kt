@@ -1,7 +1,6 @@
 package com.mahmoudhamdyae.mynotes.database
 
 import android.content.Context
-import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import junit.framework.TestCase
@@ -23,8 +22,8 @@ class NoteDatabaseTest : TestCase() {
     @Before
     public override fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        db = Room.inMemoryDatabaseBuilder(context, NoteDatabase::class.java).build()
-        dao = db.noteDao
+        db = NoteDatabase.getInstance(context)
+        dao = db.noteDao()
     }
 
     @After
