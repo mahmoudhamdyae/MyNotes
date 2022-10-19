@@ -26,6 +26,7 @@ class EditorViewModel (note: Note, application: Application) : AndroidViewModel(
         get() = _error
 
     val database = NoteDatabase.getInstance(application)
+    val noteDao = database.noteDao()
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
@@ -38,10 +39,24 @@ class EditorViewModel (note: Note, application: Application) : AndroidViewModel(
     fun saveNote(note: Note) {
         coroutineScope.launch {
             try {
-                database.noteDao().insertNote(note)
+                noteDao.insertNote(note)
                 _isFinished.value = true
             } catch (e: Exception) {
-                _error.value = note.title + e.toString()
+                _error.value = "Error: ${e.toString()}"
+            }
+        }
+    }
+
+    fun updateNote(note: Note) {
+    }
+
+    fun delNote(noteId: Long) {
+        coroutineScope.launch {
+            try {
+                noteDao.deleteNoteById(noteId)
+                _isFinished.value = true
+            } catch (e: Exception){
+                _error.value = "Error: ${e.toString()}"
             }
         }
     }

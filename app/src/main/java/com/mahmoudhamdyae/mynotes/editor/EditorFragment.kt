@@ -13,15 +13,18 @@ import com.mahmoudhamdyae.mynotes.databinding.FragmentEditorBinding
 @Suppress("DEPRECATION")
 class EditorFragment : Fragment() {
 
+    lateinit var note: Note
+    lateinit var binding: FragmentEditorBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentEditorBinding.inflate(inflater)
+        binding = FragmentEditorBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        val note = EditorFragmentArgs.fromBundle(requireArguments()).note
+        note = EditorFragmentArgs.fromBundle(requireArguments()).note
         val viewModelFactory = EditorViewModelFactory(note, requireActivity().application)
         val viewModel = ViewModelProvider(this, viewModelFactory)[EditorViewModel::class.java]
         binding.viewModel = viewModel
@@ -63,15 +66,11 @@ class EditorFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_delete -> {
-                deleteNote()
+                binding.viewModel?.delNote(note.id)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun deleteNote() {
-        Toast.makeText(context, "Delete Note", Toast.LENGTH_SHORT).show()
     }
 
     private fun saveOrUpdateNote(viewModel: EditorViewModel, note: Note) {
