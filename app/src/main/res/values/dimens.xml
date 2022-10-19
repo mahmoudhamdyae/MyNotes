@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_margin">8dp</dimen>
+    <dimen name="text_margin">2dp</dimen>
+
+    <dimen name="fab_margin">8dp</dimen>
+
+    <dimen name="cards_margin">8dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_elevation">6dp</dimen>
+
+    <dimen name="pressed_translation_z">12dp</dimen>
+</resources>

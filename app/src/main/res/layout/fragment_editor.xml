@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -10,18 +11,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/activity_margin"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/title_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.selectedNote.title}"/>
+            android:hint="@string/hint_title"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="@{viewModel.selectedNote.title}" />
 
         <EditText
             android:id="@+id/description_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/hint_description"
+            android:inputType="text"
             android:layout_below="@+id/title_edit_text"
             android:text="@{viewModel.selectedNote.description}"/>
 
@@ -32,7 +39,9 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:src="@drawable/ic_done_white_24dp"
-            android:contentDescription="@string/save_note_fab_content_description" />
+            android:layout_margin="@dimen/fab_margin"
+            android:contentDescription="@string/save_note_fab_content_description"
+            app:pressedTranslationZ="@dimen/pressed_translation_z"/>
 
     </RelativeLayout>
 </layout>

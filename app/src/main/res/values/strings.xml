@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">My Notes</string>
 
+    <!--EditTexts Hints-->
+    <string name="hint_title">Title</string>
+    <string name="hint_description">Description</string>
+
     <!-- Menu Items -->
     <string name="del_menu_item">Delete</string>
 

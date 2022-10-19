@@ -12,7 +12,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_margin">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_notes"
@@ -29,7 +30,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:contentDescription="@string/add_note_fab_content_description"
-            android:src="@drawable/fab_plus" />
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/fab_plus"
+            app:pressedTranslationZ="@dimen/pressed_translation_z" />
 
     </RelativeLayout>
 </layout>
