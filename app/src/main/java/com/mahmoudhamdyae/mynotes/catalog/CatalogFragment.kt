@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.mahmoudhamdyae.mynotes.database.Note
+import com.mahmoudhamdyae.mynotes.R
 import com.mahmoudhamdyae.mynotes.databinding.FragmentCatalogBinding
 
 class CatalogFragment: Fragment() {
@@ -26,7 +26,7 @@ class CatalogFragment: Fragment() {
         val viewModel = ViewModelProvider(this)[CatalogViewModel::class.java]
         binding.viewModel = viewModel
         binding.listNotes.adapter = NotesAdapter(NotesAdapter.OnClickListener{
-            editNote(it)
+            editNote(it.id)
         })
 
         binding.addNoteFab.setOnClickListener {
@@ -41,11 +41,16 @@ class CatalogFragment: Fragment() {
     }
 
     private fun addNote() {
-        val note = Note(4, "t", "d")
-        findNavController().navigate(CatalogFragmentDirections.actionCatalogFragmentToEditorFragment(note))
+        findNavController().navigate(CatalogFragmentDirections.actionCatalogFragmentToEditorFragment())
     }
 
-    private fun editNote(note: Note) {
-        findNavController().navigate(CatalogFragmentDirections.actionCatalogFragmentToEditorFragment(note))
+    private fun editNote(noteId: Long) {
+        findNavController().navigate(CatalogFragmentDirections.actionCatalogFragmentToEditorFragment(noteId))
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Set title My Notes
+        activity?.title = getString(R.string.app_name)
     }
 }

@@ -10,6 +10,6 @@ import kotlinx.parcelize.Parcelize
 class Note(
     @PrimaryKey(autoGenerate = true)
     val id : Long = 0L,
-    val title: String,
-    val description: String
+    val title: String = "",
+    val description: String = ""
 ) : Parcelable

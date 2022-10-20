@@ -1,14 +1,18 @@
 <resources>
     <string name="app_name">My Notes</string>
 
-    <!--EditTexts Hints-->
+    <!-- EditFragment Title -->
+    <string name="title_editor_new_note">Add Note</string>
+    <string name="title_editor_edit_note">Edit Note</string>
+
+    <!-- EditTexts Hints -->
     <string name="hint_title">Title</string>
     <string name="hint_description">Description</string>
 
     <!-- Menu Items -->
     <string name="del_menu_item">Delete</string>
 
-    <!-- Content Descriptions-->
+    <!-- Content Descriptions -->
     <string name="add_note_fab_content_description">Add Note</string>
     <string name="save_note_fab_content_description">Save Note</string>
 </resources>

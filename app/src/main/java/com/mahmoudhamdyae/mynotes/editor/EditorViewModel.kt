@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class EditorViewModel (note: Note, application: Application) : AndroidViewModel(application) {
+class EditorViewModel (noteId: Long, application: Application) : AndroidViewModel(application) {
 
     private val _selectedNote = MutableLiveData<Note>()
     val selectedNote: LiveData<Note>
@@ -26,14 +26,27 @@ class EditorViewModel (note: Note, application: Application) : AndroidViewModel(
         get() = _error
 
     val database = NoteDatabase.getInstance(application)
-    val noteDao = database.noteDao()
+    private val noteDao = database.noteDao()
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
     init {
         _isFinished.value = false
-        _selectedNote.value = note
+        getNote(noteId)
+    }
+
+    private fun getNote(noteId: Long) {
+        coroutineScope.launch {
+            try {
+                noteDao.getNoteById(noteId).collect{
+                    _selectedNote.value = it
+                }
+                _isFinished.value = true
+            } catch (e: Exception) {
+                _error.value = "Error: $e"
+            }
+        }
     }
 
     fun saveNote(note: Note) {
@@ -42,12 +55,20 @@ class EditorViewModel (note: Note, application: Application) : AndroidViewModel(
                 noteDao.insertNote(note)
                 _isFinished.value = true
             } catch (e: Exception) {
-                _error.value = "Error: ${e.toString()}"
+                _error.value = "Error: $e"
             }
         }
     }
 
     fun updateNote(note: Note) {
+        coroutineScope.launch {
+            try {
+                noteDao.updateNote(note)
+                _isFinished.value = true
+            } catch (e: Exception) {
+                _error.value = "Error: $e"
+            }
+        }
     }
 
     fun delNote(noteId: Long) {
@@ -56,7 +77,7 @@ class EditorViewModel (note: Note, application: Application) : AndroidViewModel(
                 noteDao.deleteNoteById(noteId)
                 _isFinished.value = true
             } catch (e: Exception){
-                _error.value = "Error: ${e.toString()}"
+                _error.value = "Error: $e"
             }
         }
     }

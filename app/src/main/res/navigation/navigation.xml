@@ -16,14 +16,15 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/catalogFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/editorFragment"
         android:name="com.mahmoudhamdyae.mynotes.editor.EditorFragment"
         android:label="EditorFragment">
         <argument
-            android:name="note"
-            app:argType="com.mahmoudhamdyae.mynotes.database.Note" />
+            android:name="noteId"
+            android:defaultValue="0L"
+            app:argType="long" />
     </fragment>
 </navigation>

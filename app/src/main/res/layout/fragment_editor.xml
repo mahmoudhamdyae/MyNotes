@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.mahmoudhamdyae.mynotes.editor.EditorViewModel" />
@@ -11,15 +12,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/activity_margin"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/activity_margin">
 
         <EditText
             android:id="@+id/title_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_title"
-            android:inputType="text"
+            android:imeOptions="actionGo"
+            android:inputType="textCapSentences|textAutoCorrect"
             android:maxLines="1"
             android:text="@{viewModel.selectedNote.title}" />
 
@@ -27,21 +29,22 @@
             android:id="@+id/description_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_description"
-            android:inputType="text"
             android:layout_below="@+id/title_edit_text"
-            android:text="@{viewModel.selectedNote.description}"/>
+            android:hint="@string/hint_description"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences|textAutoCorrect"
+            android:text="@{viewModel.selectedNote.description}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/save_note_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_done_white_24dp"
+            android:layout_alignParentBottom="true"
             android:layout_margin="@dimen/fab_margin"
             android:contentDescription="@string/save_note_fab_content_description"
-            app:pressedTranslationZ="@dimen/pressed_translation_z"/>
+            android:src="@drawable/ic_done_white_24dp"
+            app:pressedTranslationZ="@dimen/pressed_translation_z" />
 
     </RelativeLayout>
 </layout>
