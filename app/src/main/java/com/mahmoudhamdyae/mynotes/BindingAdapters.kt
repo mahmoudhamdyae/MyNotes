@@ -1,5 +1,7 @@
 package com.mahmoudhamdyae.mynotes
 
+import android.view.View
+import android.widget.RelativeLayout
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mahmoudhamdyae.mynotes.catalog.NotesAdapter
@@ -9,4 +11,16 @@ import com.mahmoudhamdyae.mynotes.database.Note
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Note>?) {
     val adapter = recyclerView.adapter as NotesAdapter
     adapter.submitList(data)
+}
+
+@BindingAdapter("emptyStatus")
+fun bindStatus(emptyView: RelativeLayout, notesNo: Int) {
+    when (notesNo) {
+        0 -> {
+            emptyView.visibility = View.VISIBLE
+        }
+        else -> {
+            emptyView.visibility = View.GONE
+        }
+    }
 }
