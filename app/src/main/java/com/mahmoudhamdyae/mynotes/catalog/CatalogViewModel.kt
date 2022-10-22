@@ -29,7 +29,7 @@ class CatalogViewModel(application: Application) : AndroidViewModel(application)
     init {
         coroutineScope.launch {
             try {
-                database.noteDao().getAllNotes().collect() {
+                database.noteDao().getAllNotes().collect {
                     _notes.postValue(it)
                 }
             } catch (e: Exception) {

@@ -6,10 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mahmoudhamdyae.mynotes.database.Note
 import com.mahmoudhamdyae.mynotes.database.NoteDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class EditorViewModel (noteId: Long, application: Application) : AndroidViewModel(application) {
 
@@ -29,7 +26,7 @@ class EditorViewModel (noteId: Long, application: Application) : AndroidViewMode
     private val noteDao = database.noteDao()
 
     private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
         _isFinished.value = false
@@ -43,8 +40,7 @@ class EditorViewModel (noteId: Long, application: Application) : AndroidViewMode
                     _selectedNote.value = it
                 }
                 _isFinished.value = true
-            } catch (e: Exception) {
-                _error.value = "Error: $e"
+            } catch (_: Exception) {
             }
         }
     }

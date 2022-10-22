@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            app:emptyStatus="@{viewModel.notes.size()}"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:emptyStatus="@{viewModel.notes.size()}">
 
             <TextView
                 android:id="@+id/empty_title_text"
@@ -62,8 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:contentDescription="@string/add_note_fab_content_description"
             android:layout_margin="@dimen/fab_margin"
+            android:contentDescription="@string/add_note_fab_content_description"
             android:src="@drawable/fab_plus"
             app:pressedTranslationZ="@dimen/pressed_translation_z" />
 
