@@ -102,7 +102,7 @@ class EditorFragment : Fragment() {
         else if (isNew)
             saveNote(Note(title = title, description = description))
         else if (mNoteHasChanged)
-            updateNote(Note(title = title, description = description))
+            updateNote(Note(noteId, title, description))
         else
             navigateUp()
     }
