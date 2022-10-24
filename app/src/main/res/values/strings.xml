@@ -15,6 +15,7 @@
 
     <!-- Menu Items -->
     <string name="del_menu_item">Delete</string>
+    <string name="sign_out_menu_item">Sign Out</string>
 
     <!-- Content Descriptions -->
     <string name="add_note_fab_content_description">Add Note</string>
