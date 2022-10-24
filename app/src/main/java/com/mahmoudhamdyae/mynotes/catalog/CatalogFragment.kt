@@ -106,7 +106,8 @@ class CatalogFragment : Fragment() {
         // Give users the option to sign in / register with their email or Google account.
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build()
+            AuthUI.IdpConfig.GoogleBuilder().build(),
+            AuthUI.IdpConfig.PhoneBuilder().build()
         )
 
         // Create and launch sign-in intent.
