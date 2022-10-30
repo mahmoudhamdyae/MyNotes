@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.google.firebase.auth.FirebaseAuth
 import com.mahmoudhamdyae.mynotes.R
 import com.mahmoudhamdyae.mynotes.Utils
 import com.mahmoudhamdyae.mynotes.databinding.FragmentCatalogBinding
@@ -128,8 +127,6 @@ class CatalogFragment : Fragment() {
         val response = result.idpResponse
         if (result.resultCode == AppCompatActivity.RESULT_OK) {
             // Successfully signed in
-            val user = FirebaseAuth.getInstance().currentUser
-            Toast.makeText(context, user?.uid.toString(), Toast.LENGTH_SHORT).show()
         } else {
             // Sign in failed.
             Toast.makeText(context, response?.error.toString(), Toast.LENGTH_SHORT).show()

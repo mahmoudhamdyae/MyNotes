@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -115,6 +116,35 @@ class EditorFragment : Fragment() {
         viewModel.updateNote(note)
     }
 
+    private fun delNote(noteId: Long) {
+        viewModel.delNote(noteId)
+        Toast.makeText(context, getString(R.string.toast_note_deleted), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showDialog() {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setMessage(getString(R.string.dialog_delete_msg))
+                setPositiveButton(getString(R.string.dialog_yes)
+                ) { _, _ ->
+                    // User clicked Yes button
+                    // Delete Note
+                    delNote(noteId)
+                }
+                setNegativeButton(getString(R.string.dialog_no)
+                ) { _, _ ->
+                    // User clicked Cancel button
+                    // Do nothing
+                }
+            }
+
+            // Create the AlertDialog
+            builder.create()
+        }
+        alertDialog?.show()
+    }
+
     private fun navigateUp() {
         findNavController().navigateUp()
     }
@@ -133,7 +163,7 @@ class EditorFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_delete -> {
-                viewModel.delNote(noteId)
+                showDialog()
                 true
             }
 //            android.R.id.home -> {
