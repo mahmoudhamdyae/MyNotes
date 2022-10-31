@@ -1,15 +1,13 @@
 package com.mahmoudhamdyae.mynotes.catalog
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.EventListener
 import com.mahmoudhamdyae.mynotes.database.Note
-import com.mahmoudhamdyae.mynotes.database.NoteDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.mahmoudhamdyae.mynotes.database.FirebaseRepository
 
 class CatalogViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -21,25 +19,29 @@ class CatalogViewModel(application: Application) : AndroidViewModel(application)
     val error: LiveData<String>
         get() = _error
 
-    val database = NoteDatabase.getInstance(application)
-
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
+    private val notesRepository = FirebaseRepository()
 
     init {
-        coroutineScope.launch {
-            try {
-                database.noteDao().getAllNotes().collect {
-                    _notes.postValue(it)
-                }
-            } catch (e: Exception) {
-                _error.value = e.toString()
-            }
-        }
+        getNotes2()
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
+    private fun getNotes2() {
+        try {
+            notesRepository.getAllNotes().addSnapshotListener(EventListener { value, e ->
+                if (e != null) {
+                    Log.d("haha", "Listen failed.", e)
+                    return@EventListener
+                }
+                val notesList : MutableList<Note> = mutableListOf()
+                for (document in value!!) {
+                    val noteItem = Note(document.id, document.get("title").toString(), document.get("description").toString())
+                    Log.d("haha", "Get: $noteItem")
+                    notesList.add(noteItem)
+                }
+                _notes.value = notesList
+            })
+        } catch (e: Exception) {
+            _error.value = e.toString()
+        }
     }
 }

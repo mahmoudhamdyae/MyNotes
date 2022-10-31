@@ -12,6 +12,7 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.mahmoudhamdyae.mynotes.R
 import com.mahmoudhamdyae.mynotes.Utils
+import com.mahmoudhamdyae.mynotes.database.Note
 import com.mahmoudhamdyae.mynotes.databinding.FragmentCatalogBinding
 
 @Suppress("DEPRECATION")
@@ -39,7 +40,7 @@ class CatalogFragment : Fragment() {
         val viewModel = ViewModelProvider(this)[CatalogViewModel::class.java]
         binding.viewModel = viewModel
         binding.listNotes.adapter = NotesAdapter(NotesAdapter.OnClickListener {
-            editNote(it.id)
+            editNote(it)
         })
 
         binding.addNoteFab.setOnClickListener {
@@ -56,13 +57,13 @@ class CatalogFragment : Fragment() {
     }
 
     private fun addNote() {
-        findNavController().navigate(CatalogFragmentDirections.actionCatalogFragmentToEditorFragment())
+        findNavController().navigate(CatalogFragmentDirections.actionCatalogFragmentToEditorFragment(Note()))
     }
 
-    private fun editNote(noteId: Long) {
+    private fun editNote(note: Note) {
         findNavController().navigate(
             CatalogFragmentDirections.actionCatalogFragmentToEditorFragment(
-                noteId
+                note
             )
         )
     }

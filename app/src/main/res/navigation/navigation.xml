@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/catalogFragment">
 
     <fragment
         android:id="@+id/catalogFragment"
         android:name="com.mahmoudhamdyae.mynotes.catalog.CatalogFragment"
-        android:label="CatalogFragment">
+        android:label="CatalogFragment"
+        tools:layout="@layout/fragment_catalog">
         <action
             android:id="@+id/action_catalogFragment_to_editorFragment"
             app:destination="@id/editorFragment"
@@ -21,10 +23,10 @@
     <fragment
         android:id="@+id/editorFragment"
         android:name="com.mahmoudhamdyae.mynotes.editor.EditorFragment"
-        android:label="EditorFragment">
+        android:label="EditorFragment"
+        tools:layout="@layout/fragment_editor">
         <argument
-            android:name="noteId"
-            android:defaultValue="0L"
-            app:argType="long" />
+            android:name="note"
+            app:argType="com.mahmoudhamdyae.mynotes.database.Note" />
     </fragment>
 </navigation>

@@ -1,12 +1,11 @@
 package com.mahmoudhamdyae.mynotes.database
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-@Entity
+@Parcelize
 class Note(
-    @PrimaryKey(autoGenerate = true)
-    val id : Long = 0L,
+    val id : String = "",
     var title: String = "",
     val description: String = ""
-)
+) : Parcelable

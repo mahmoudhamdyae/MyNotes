@@ -5,10 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mahmoudhamdyae.mynotes.database.Note
-import com.mahmoudhamdyae.mynotes.database.NoteDatabase
-import kotlinx.coroutines.*
+import com.mahmoudhamdyae.mynotes.database.FirebaseRepository
 
-class EditorViewModel (noteId: Long, application: Application) : AndroidViewModel(application) {
+class EditorViewModel (note: Note, application: Application) : AndroidViewModel(application) {
 
     private val _selectedNote = MutableLiveData<Note>()
     val selectedNote: LiveData<Note>
@@ -22,68 +21,41 @@ class EditorViewModel (noteId: Long, application: Application) : AndroidViewMode
     val error: LiveData<String>
         get() = _error
 
-    val database = NoteDatabase.getInstance(application)
-    private val noteDao = database.noteDao()
-
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val notesRepository = FirebaseRepository()
 
     init {
         _isFinished.value = false
-        getNote(noteId)
-    }
-
-    private fun getNote(noteId: Long) {
-        coroutineScope.launch {
-            try {
-                noteDao.getNoteById(noteId).collect{
-                    _selectedNote.value = it
-                }
-                _isFinished.value = true
-            } catch (_: Exception) {
-            }
-        }
+        _selectedNote.value = note
     }
 
     fun saveNote(note: Note) {
-        coroutineScope.launch {
-            try {
-                noteDao.insertNote(note)
-                _isFinished.value = true
-            } catch (e: Exception) {
-                _error.value = "Error: $e"
-            }
+        try {
+            notesRepository.saveNote(note)
+            _isFinished.value = true
+        } catch (e: Exception) {
+            _error.value = "Error: $e"
         }
     }
 
     fun updateNote(note: Note) {
-        coroutineScope.launch {
-            try {
-                noteDao.updateNote(note)
-                _isFinished.value = true
-            } catch (e: Exception) {
-                _error.value = "Error: $e"
-            }
+        try {
+            notesRepository.updateNote(note)
+            _isFinished.value = true
+        } catch (e: Exception) {
+            _error.value = "Error: $e"
         }
     }
 
-    fun delNote(noteId: Long) {
-        coroutineScope.launch {
-            try {
-                noteDao.deleteNoteById(noteId)
-                _isFinished.value = true
-            } catch (e: Exception){
-                _error.value = "Error: $e"
-            }
+    fun delNote(noteId: String) {
+        try {
+            notesRepository.delNote(noteId)
+            _isFinished.value = true
+        } catch (e: Exception){
+            _error.value = "Error: $e"
         }
     }
 
     fun closeFragment(){
         _isFinished.value = false
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
     }
 }

@@ -17,9 +17,8 @@ import com.mahmoudhamdyae.mynotes.databinding.FragmentEditorBinding
 @Suppress("DEPRECATION")
 class EditorFragment : Fragment() {
 
-    var note: Note = Note()
-    private var noteId = 0L
-    lateinit var viewModel: EditorViewModel
+    private var note: Note = Note()
+    private lateinit var viewModel: EditorViewModel
     private lateinit var binding: FragmentEditorBinding
 
     private var isNew: Boolean = false
@@ -45,13 +44,13 @@ class EditorFragment : Fragment() {
         binding = FragmentEditorBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        noteId = EditorFragmentArgs.fromBundle(requireArguments()).noteId
+        note = EditorFragmentArgs.fromBundle(requireArguments()).note
 
-        val viewModelFactory = EditorViewModelFactory(noteId, requireActivity().application)
+        val viewModelFactory = EditorViewModelFactory(note, requireActivity().application)
         viewModel = ViewModelProvider(this, viewModelFactory)[EditorViewModel::class.java]
         binding.viewModel = viewModel
 
-        if (noteId == 0L) {
+        if (note.id == "") {
             isNew = true
         } else {
             viewModel.selectedNote.observe(viewLifecycleOwner) {
@@ -103,7 +102,7 @@ class EditorFragment : Fragment() {
         else if (isNew)
             saveNote(Note(title = title, description = description))
         else if (mNoteHasChanged)
-            updateNote(Note(noteId, title, description))
+            updateNote(Note(note.id, title, description))
         else
             navigateUp()
     }
@@ -116,7 +115,7 @@ class EditorFragment : Fragment() {
         viewModel.updateNote(note)
     }
 
-    private fun delNote(noteId: Long) {
+    private fun delNote(noteId: String) {
         viewModel.delNote(noteId)
         Toast.makeText(context, getString(R.string.toast_note_deleted), Toast.LENGTH_SHORT).show()
     }
@@ -130,7 +129,7 @@ class EditorFragment : Fragment() {
                 ) { _, _ ->
                     // User clicked Yes button
                     // Delete Note
-                    delNote(noteId)
+                    delNote(note.id)
                 }
                 setNegativeButton(getString(R.string.dialog_no)
                 ) { _, _ ->
