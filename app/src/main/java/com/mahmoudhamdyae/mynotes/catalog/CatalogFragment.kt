@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
@@ -39,6 +40,8 @@ class CatalogFragment : Fragment() {
 
         val viewModel = ViewModelProvider(this)[CatalogViewModel::class.java]
         binding.viewModel = viewModel
+
+        binding.listNotes.layoutManager = GridLayoutManager(context, 1)
         binding.listNotes.adapter = NotesAdapter(NotesAdapter.OnClickListener {
             editNote(it)
         })

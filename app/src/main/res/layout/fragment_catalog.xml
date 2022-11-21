@@ -19,7 +19,6 @@
             android:id="@+id/list_notes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:listData="@{viewModel.notes}"
             tools:listitem="@layout/list_item" />
 
