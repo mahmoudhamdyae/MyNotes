@@ -5,7 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mahmoudhamdyae.mynotes.database.Note
-import com.mahmoudhamdyae.mynotes.database.FirebaseRepository
+import com.mahmoudhamdyae.mynotes.database.FirebaseNetwork
+import com.mahmoudhamdyae.mynotes.database.Repository
 
 class EditorViewModel (note: Note, application: Application) : AndroidViewModel(application) {
 
@@ -21,7 +22,7 @@ class EditorViewModel (note: Note, application: Application) : AndroidViewModel(
     val error: LiveData<String>
         get() = _error
 
-    private val notesRepository = FirebaseRepository()
+    private val notesRepository = Repository()
 
     init {
         _isFinished.value = false

@@ -7,7 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.EventListener
 import com.mahmoudhamdyae.mynotes.database.Note
-import com.mahmoudhamdyae.mynotes.database.FirebaseRepository
+import com.mahmoudhamdyae.mynotes.database.FirebaseNetwork
+import com.mahmoudhamdyae.mynotes.database.Repository
 
 class CatalogViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,7 +20,7 @@ class CatalogViewModel(application: Application) : AndroidViewModel(application)
     val error: LiveData<String>
         get() = _error
 
-    private val notesRepository = FirebaseRepository()
+    private val notesRepository = Repository()
 
     init {
         getNotes2()
