@@ -12,13 +12,14 @@ import androidx.navigation.fragment.findNavController
 import com.mahmoudhamdyae.mynotes.R
 import com.mahmoudhamdyae.mynotes.database.Note
 import com.mahmoudhamdyae.mynotes.databinding.FragmentEditorBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class EditorFragment : Fragment() {
 
     private var note: Note = Note()
-    private val viewModel: EditorViewModel by viewModels { EditorViewModel.Factory }
+    private val viewModel: EditorViewModel by viewModels()
     private lateinit var binding: FragmentEditorBinding
 
     private var isNew: Boolean = false

@@ -1,10 +1,6 @@
 package com.mahmoudhamdyae.mynotes.editor
 
 import androidx.lifecycle.*
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewmodel.CreationExtras
-import com.mahmoudhamdyae.mynotes.BaseApplication
-import com.mahmoudhamdyae.mynotes.database.FirebaseApi
 import com.mahmoudhamdyae.mynotes.database.Note
 import com.mahmoudhamdyae.mynotes.database.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -63,27 +59,5 @@ class EditorViewModel @Inject constructor(
 
     fun closeFragment(){
         _isFinished.value = false
-    }
-
-    // Define ViewModel factory in a companion object
-    companion object {
-
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                // Get the Application object from extras
-                val application = checkNotNull(extras[APPLICATION_KEY]) as BaseApplication
-                // Create a SavedStateHandle for this ViewModel from extras
-                val savedStateHandle = extras.createSavedStateHandle()
-
-                return EditorViewModel(
-                    Repository(FirebaseApi()),
-                    savedStateHandle
-                ) as T
-            }
-        }
     }
 }
