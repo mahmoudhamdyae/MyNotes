@@ -5,7 +5,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.firebase.ui.auth.AuthUI
@@ -15,8 +15,10 @@ import com.mahmoudhamdyae.mynotes.R
 import com.mahmoudhamdyae.mynotes.Utils
 import com.mahmoudhamdyae.mynotes.database.Note
 import com.mahmoudhamdyae.mynotes.databinding.FragmentCatalogBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
+@AndroidEntryPoint
 class CatalogFragment : Fragment() {
 
     private lateinit var binding: FragmentCatalogBinding
@@ -38,7 +40,7 @@ class CatalogFragment : Fragment() {
         binding = FragmentCatalogBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        val viewModel = ViewModelProvider(this)[CatalogViewModel::class.java]
+        val viewModel : CatalogViewModel by activityViewModels()
         binding.viewModel = viewModel
 
         binding.listNotes.layoutManager = GridLayoutManager(context, 1)

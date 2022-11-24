@@ -1,18 +1,22 @@
 package com.mahmoudhamdyae.mynotes.database
 
-class Repository {
+import javax.inject.Inject
 
-    fun getAllNotes() = FirebaseNetwork().getAllNotes()
+class Repository @Inject constructor(
+    private val firebaseApi: FirebaseApi
+) {
+
+    fun getAllNotes() = firebaseApi.getAllNotes()
 
     fun saveNote(note: Note) {
-        FirebaseNetwork().saveNote(note)
+        firebaseApi.saveNote(note)
     }
 
     fun updateNote(note: Note) {
-        FirebaseNetwork().updateNote(note)
+        firebaseApi.updateNote(note)
     }
 
     fun delNote(noteId: String) {
-        FirebaseNetwork().delNote(noteId)
+        firebaseApi.delNote(noteId)
     }
 }

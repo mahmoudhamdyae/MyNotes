@@ -5,7 +5,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.mahmoudhamdyae.mynotes.Utils
 
-class FirebaseNetwork() {
+class FirebaseApi {
 
     private val userId = Utils().getUser()?.uid.toString()
     private val db = Firebase.firestore

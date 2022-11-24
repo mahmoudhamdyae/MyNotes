@@ -1,16 +1,19 @@
 package com.mahmoudhamdyae.mynotes.catalog
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.EventListener
 import com.mahmoudhamdyae.mynotes.database.Note
-import com.mahmoudhamdyae.mynotes.database.FirebaseNetwork
 import com.mahmoudhamdyae.mynotes.database.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CatalogViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class CatalogViewModel @Inject constructor(
+    private val repository: Repository
+) : ViewModel() {
 
     private val _notes = MutableLiveData<List<Note>>()
     val notes : LiveData<List<Note>>
@@ -20,15 +23,13 @@ class CatalogViewModel(application: Application) : AndroidViewModel(application)
     val error: LiveData<String>
         get() = _error
 
-    private val notesRepository = Repository()
-
     init {
         getNotes2()
     }
 
     private fun getNotes2() {
         try {
-            notesRepository.getAllNotes().addSnapshotListener(EventListener { value, e ->
+            repository.getAllNotes().addSnapshotListener(EventListener { value, e ->
                 if (e != null) {
                     Log.d("haha", "Listen failed.", e)
                     return@EventListener

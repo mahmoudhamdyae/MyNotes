@@ -7,18 +7,18 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mahmoudhamdyae.mynotes.R
 import com.mahmoudhamdyae.mynotes.database.Note
 import com.mahmoudhamdyae.mynotes.databinding.FragmentEditorBinding
 
-
 @Suppress("DEPRECATION")
+//@AndroidEntryPoint
 class EditorFragment : Fragment() {
 
     private var note: Note = Note()
-    private lateinit var viewModel: EditorViewModel
+    private val viewModel: EditorViewModel by viewModels { EditorViewModel.Factory }
     private lateinit var binding: FragmentEditorBinding
 
     private var isNew: Boolean = false
@@ -46,8 +46,6 @@ class EditorFragment : Fragment() {
 
         note = EditorFragmentArgs.fromBundle(requireArguments()).note
 
-        val viewModelFactory = EditorViewModelFactory(note, requireActivity().application)
-        viewModel = ViewModelProvider(this, viewModelFactory)[EditorViewModel::class.java]
         binding.viewModel = viewModel
 
         if (note.id == "") {
